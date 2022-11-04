@@ -17,7 +17,6 @@ class PhotosController < ApplicationController
   end
 
   def delete
-
     the_id = params.fetch("path_id")
     matching_photos = Photo.where({ :id => the_id })
 
@@ -29,22 +28,19 @@ class PhotosController < ApplicationController
   end
 
   def create
-
     input_image = params.fetch("query_image")
     input_caption = params.fetch("query_caption")
     input_owner_id = params.fetch("query_owner_id")
-    
+
     a_new_photo = Photo.new
-    
-    
-    
-    matching_photos = Photo.where({ :id => the_id })
+    a_new_photo.image = input_image
+    a_new_photo.caption = input_caption
+    a_new_photo.owner_id = input_owner_id
 
-    the_photo = matching_photos.at(0)
-    the_photo.destroy
+    a_new_photo.save
 
-    render({ :template => "photo_templates/create.html.erb" })
-    redirect_to("/photos")
 
+    #render({ :template => "photo_templates/create.html.erb" })
+    redirect_to("/photos/" + a_new_photo.to_s)
   end
 end
